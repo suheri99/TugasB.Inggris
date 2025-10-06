@@ -2,7 +2,7 @@
 <html lang="id" class=""> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Super</title>
+    <title>Unggah Video & Tulis Catatan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,22 +11,20 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom styles for the file input button */
         .file-input-button {
             cursor: pointer;
             padding: 0.75rem 1.5rem;
-            background-color: #3B82F6; /* bg-blue-600 */
+            background-color: #3B82F6;
             color: white;
-            border-radius: 0.5rem; /* rounded-lg */
+            border-radius: 0.5rem;
             font-weight: 700;
             transition: background-color 0.2s;
         }
         .file-input-button:hover {
-            background-color: #2563EB; /* bg-blue-700 */
+            background-color: #2563EB;
         }
     </style>
     <script>
-        // Skrip ini ditempatkan di <head> untuk mencegah "flicker" (kedipan) saat memuat tema
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -46,12 +44,11 @@
             </div>
             
             <div class="text-center mb-6">
-                <img src="Logo_SMAN_1_PKL_Lesung_HD_.png" alt="Logo Website" class="mx-auto">
+                <img src="https://placehold.co/150x50/3B82F6/white?text=LogoAnda" alt="Logo Website" class="mx-auto">
             </div>
 
-            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">Tugas B. Inggris Tingkat Lanjut</h1>
-            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">By: Mr. Suheri, S.Pd.</h1>
-            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">Kerjakan Tugas B. Inggris dengan menonton video dibawah ini!</p>
+            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">Video dan Catatan</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">Unggah video Anda untuk menampilkannya, lalu tulis catatan di bawah.</p>
             
             <div class="mb-6 text-center">
                 <button id="adminUploadBtn" class="file-input-button">
@@ -88,10 +85,10 @@
                     </button>
                 </div>
                 <div id="comments-list" class="space-y-4">
-                    </div>
+                </div>
             </div>
 
-             <div id="placeholder" class="text-center py-16 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+            <div id="placeholder" class="text-center py-16 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
                 <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45 10.22 13.22m5.23-3.22L12 7.5 9 10.5M15 10l-3-2.5-3 2.5" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45" />
@@ -119,21 +116,16 @@
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // --- Logika Dark Mode ---
-        // Menentukan ikon mana yang akan ditampilkan berdasarkan tema saat ini
+        // --- Logika Dark Mode (tidak berubah) ---
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             themeToggleLightIcon.classList.remove('hidden');
         } else {
             themeToggleDarkIcon.classList.remove('hidden');
         }
 
-        // Event listener untuk tombol toggle tema
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle ikon di dalam tombol
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
-
-            // Jika tema sudah tersimpan di localStorage, ubah
             if (localStorage.getItem('color-theme')) {
                 if (localStorage.getItem('color-theme') === 'light') {
                     document.documentElement.classList.add('dark');
@@ -142,7 +134,6 @@
                     document.documentElement.classList.remove('dark');
                     localStorage.setItem('color-theme', 'light');
                 }
-            // Jika belum ada, set berdasarkan kelas 'dark' yang ada di <html>
             } else {
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
@@ -155,15 +146,18 @@
         });
 
         // --- Logika Unggah Video ---
+        // Listener ini HANYA untuk tombol "Admin: Unggah Video"
         adminUploadBtn.addEventListener('click', function() {
             const password = prompt("Masukkan password admin:");
+            // Hanya jika password benar, proses pemilihan file dimulai.
             if (password === "admin123") {
-                videoUpload.click();
+                videoUpload.click(); // Memicu dialog pemilihan file
             } else if (password !== null) {
                 alert("Password salah. Hanya admin yang dapat mengunggah video.");
             }
         });
 
+        // Listener ini berjalan SETELAH admin berhasil memilih file
         videoUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -173,13 +167,20 @@
                 }
                 const videoURL = URL.createObjectURL(file);
                 videoPlayer.src = videoURL;
+
+                // --- BAGIAN PENTING ---
+                // Kode di bawah ini membuat video dan kolom komentar TERLIHAT OLEH SEMUA ORANG
+                // dengan menghapus kelas 'hidden'.
+                // Proses ini tidak memerlukan password.
                 videoContainer.classList.remove('hidden');
                 notesContainer.classList.remove('hidden');
                 commentsContainer.classList.remove('hidden');
-                placeholder.classList.add('hidden');
+                
+                placeholder.classList.add('hidden'); // Sembunyikan placeholder
                 fileNameDisplay.textContent = `File yang dipilih: ${file.name}`;
                 videoPlayer.load();
             } else {
+                // Mengembalikan ke state awal jika admin batal memilih file
                 videoContainer.classList.add('hidden');
                 notesContainer.classList.add('hidden');
                 commentsContainer.classList.add('hidden');
@@ -189,7 +190,8 @@
             }
         });
 
-        // --- Logika Komentar ---
+        // --- Logika Komentar (Dapat Diakses Semua Pengguna) ---
+        // Listener ini tidak memiliki batasan apa pun. Siapa saja bisa mengkliknya.
         submitCommentBtn.addEventListener('click', function() {
             const name = commenterName.value.trim();
             const comment = commentText.value.trim();
@@ -200,7 +202,6 @@
             }
 
             const commentElement = document.createElement('div');
-            // Menambahkan kelas dark mode untuk elemen komentar yang dibuat dinamis
             commentElement.classList.add('bg-white', 'dark:bg-gray-700', 'p-4', 'rounded-lg', 'shadow-sm', 'border', 'border-gray-200', 'dark:border-gray-600');
 
             const nameElement = document.createElement('p');
@@ -226,5 +227,4 @@
         });
     </script>
 </body>
-
 </html>
