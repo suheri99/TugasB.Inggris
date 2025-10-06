@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id" class=""> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Super</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for the file input button */
+        .file-input-button {
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            background-color: #3B82F6; /* bg-blue-600 */
+            color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 700;
+            transition: background-color 0.2s;
+        }
+        .file-input-button:hover {
+            background-color: #2563EB; /* bg-blue-700 */
+        }
+    </style>
+    <script>
+        // Skrip ini ditempatkan di <head> untuk mencegah "flicker" (kedipan) saat memuat tema
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex items-center justify-center min-h-screen py-8">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-all w-full relative">
+            <div class="absolute top-4 right-4">
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM1 11a1 1 0 100-2H0a1 1 0 100 2h1z"></path></svg>
+                </button>
+            </div>
+            
+            <div class="text-center mb-6">
+                <img src="Logo_SMAN_1_PKL_Lesung_HD_.png" alt="Logo Website" class="mx-auto">
+            </div>
+
+            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">Tugas B. Inggris Tingkat Lanjut</h1>
+            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">By: Mr. Suheri, S.Pd.</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">Kerjakan Tugas B. Inggris dengan menonton video dibawah ini!</p>
+            
+            <div class="mb-6 text-center">
+                <button id="adminUploadBtn" class="file-input-button">
+                    Admin: Unggah Video
+                </button>
+                <input type="file" id="videoUpload" class="hidden" accept="video/*">
+                <p id="fileName" class="text-sm text-gray-500 dark:text-gray-400 mt-2"></p>
+            </div>
+
+            <div id="video-container" class="mb-6 hidden">
+                <video id="videoPlayer" class="w-full rounded-lg bg-black" controls>
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+
+            <div id="notes-container" class="hidden">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Catatan Anda</h2>
+                <textarea id="notes" class="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Tulis catatan Anda di sini..."></textarea>
+            </div>
+            
+            <div id="comments-container" class="hidden mt-8">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Komentar</h2>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-600">
+                    <div class="mb-4">
+                        <label for="commenterName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Anda</label>
+                        <input type="text" id="commenterName" placeholder="Masukkan nama Anda" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                    </div>
+                    <div class="mb-4">
+                        <label for="commentText" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Komentar</label>
+                        <textarea id="commentText" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" placeholder="Tulis komentar Anda di sini..."></textarea>
+                    </div>
+                    <button id="submitCommentBtn" class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-transform transform hover:scale-105">
+                        Kirim Komentar
+                    </button>
+                </div>
+                <div id="comments-list" class="space-y-4">
+                    </div>
+            </div>
+
+             <div id="placeholder" class="text-center py-16 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45 10.22 13.22m5.23-3.22L12 7.5 9 10.5M15 10l-3-2.5-3 2.5" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45" />
+                </svg>
+                <p class="mt-2 text-sm font-medium text-gray-600 dark:text-gray-400">Pratinjau video akan muncul di sini</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Referensi Elemen DOM ---
+        const adminUploadBtn = document.getElementById('adminUploadBtn');
+        const videoUpload = document.getElementById('videoUpload');
+        const fileNameDisplay = document.getElementById('fileName');
+        const videoContainer = document.getElementById('video-container');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const notesContainer = document.getElementById('notes-container');
+        const placeholder = document.getElementById('placeholder');
+        const commentsContainer = document.getElementById('comments-container');
+        const submitCommentBtn = document.getElementById('submitCommentBtn');
+        const commenterName = document.getElementById('commenterName');
+        const commentText = document.getElementById('commentText');
+        const commentsList = document.getElementById('comments-list');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // --- Logika Dark Mode ---
+        // Menentukan ikon mana yang akan ditampilkan berdasarkan tema saat ini
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        // Event listener untuk tombol toggle tema
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle ikon di dalam tombol
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // Jika tema sudah tersimpan di localStorage, ubah
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            // Jika belum ada, set berdasarkan kelas 'dark' yang ada di <html>
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+
+        // --- Logika Unggah Video ---
+        adminUploadBtn.addEventListener('click', function() {
+            const password = prompt("Masukkan password admin:");
+            if (password === "admin123") {
+                videoUpload.click();
+            } else if (password !== null) {
+                alert("Password salah. Hanya admin yang dapat mengunggah video.");
+            }
+        });
+
+        videoUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (!file.type.startsWith('video/')) {
+                    alert('Harap pilih file video.');
+                    return;
+                }
+                const videoURL = URL.createObjectURL(file);
+                videoPlayer.src = videoURL;
+                videoContainer.classList.remove('hidden');
+                notesContainer.classList.remove('hidden');
+                commentsContainer.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                fileNameDisplay.textContent = `File yang dipilih: ${file.name}`;
+                videoPlayer.load();
+            } else {
+                videoContainer.classList.add('hidden');
+                notesContainer.classList.add('hidden');
+                commentsContainer.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                fileNameDisplay.textContent = '';
+                videoPlayer.src = '';
+            }
+        });
+
+        // --- Logika Komentar ---
+        submitCommentBtn.addEventListener('click', function() {
+            const name = commenterName.value.trim();
+            const comment = commentText.value.trim();
+
+            if (name === "" || comment === "") {
+                alert("Nama dan komentar tidak boleh kosong.");
+                return;
+            }
+
+            const commentElement = document.createElement('div');
+            // Menambahkan kelas dark mode untuk elemen komentar yang dibuat dinamis
+            commentElement.classList.add('bg-white', 'dark:bg-gray-700', 'p-4', 'rounded-lg', 'shadow-sm', 'border', 'border-gray-200', 'dark:border-gray-600');
+
+            const nameElement = document.createElement('p');
+            nameElement.classList.add('font-bold', 'text-gray-800', 'dark:text-white');
+            nameElement.textContent = name;
+
+            const dateElement = document.createElement('p');
+            dateElement.classList.add('text-xs', 'text-gray-500', 'dark:text-gray-400', 'mb-2');
+            dateElement.textContent = new Date().toLocaleString('id-ID');
+
+            const commentTextElement = document.createElement('p');
+            commentTextElement.classList.add('text-gray-700', 'dark:text-gray-300');
+            commentTextElement.textContent = comment;
+
+            commentElement.appendChild(nameElement);
+            commentElement.appendChild(dateElement);
+            commentElement.appendChild(commentTextElement);
+
+            commentsList.prepend(commentElement);
+
+            commenterName.value = '';
+            commentText.value = '';
+        });
+    </script>
+</body>
+</html>
