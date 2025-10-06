@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" class=""> <head>
+<html lang="id" class=""> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unggah Video & Tulis Catatan</title>
+    <title>English Super</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,20 +12,9 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .file-input-button {
-            cursor: pointer;
-            padding: 0.75rem 1.5rem;
-            background-color: #3B82F6;
-            color: white;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            transition: background-color 0.2s;
-        }
-        .file-input-button:hover {
-            background-color: #2563EB;
-        }
     </style>
     <script>
+        // Skrip ini ditempatkan di <head> untuk mencegah "flicker" (kedipan) saat memuat tema
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -44,70 +34,64 @@
             </div>
             
             <div class="text-center mb-6">
-                <img src="https://placehold.co/150x50/3B82F6/white?text=LogoAnda" alt="Logo Website" class="mx-auto">
+                <img src="Logo_SMAN_1_PKL_Lesung_HD_.png" alt="Logo Website" class="mx-auto" width="150">
             </div>
-
-            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">Video dan Catatan</h1>
-            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">Unggah video Anda untuk menampilkannya, lalu tulis catatan di bawah.</p>
+            <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">Tugas B. Inggris Tingkat Lanjut</h1>
+            <h1 class="text-2xl font-semibold mb-2 text-gray-800 dark:text-gray-200 text-center">By: Mr. Suheri, S.Pd.</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-8 text-center">Kerjakan Tugas B. Inggris dengan menonton video di bawah ini dan tulis jawaban Anda di kolom komentar!</p>
             
-            <div class="mb-6 text-center">
-                <button id="adminUploadBtn" class="file-input-button">
-                    Admin: Unggah Video
-                </button>
-                <input type="file" id="videoUpload" class="hidden" accept="video/*">
-                <p id="fileName" class="text-sm text-gray-500 dark:text-gray-400 mt-2"></p>
-            </div>
-
-            <div id="video-container" class="mb-6 hidden">
-                <video id="videoPlayer" class="w-full rounded-lg bg-black" controls>
+            <div id="video-container" class="mb-6">
+                <video id="videoPlayer" class="w-full rounded-lg bg-black" src="1006.mp4" controls>
                     Browser Anda tidak mendukung tag video.
                 </video>
             </div>
 
-            <div id="notes-container" class="hidden">
-                <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Catatan Anda</h2>
-                <textarea id="notes" class="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Tulis catatan Anda di sini..."></textarea>
+            <div id="video-description-container" class="my-8">
+                 <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Questions</h2>
+                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                   1. What is the title of video? 
+                 </p>
+                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                   2. What is the video about? 
+                 </p>
+                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                   3. What is the problem facing? 
+                 </p>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                   4. What is the conclusion of the video? 
+                 </p>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                   5. Give your analytical arguments based on the video above!
+                 </p>
+                 </p>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  (Tulis Jawaban Anda di Kolom Komentar!)
+                 </p>
             </div>
-            
-            <div id="comments-container" class="hidden mt-8">
-                <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Komentar</h2>
+
+            <div id="comments-container" class="mt-8">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-600 pb-2 mb-4 text-gray-900 dark:text-white">Kolom Jawaban</h2>
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-600">
                     <div class="mb-4">
-                        <label for="commenterName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Anda</label>
-                        <input type="text" id="commenterName" placeholder="Masukkan nama Anda" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <label for="commenterName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Lengkap Anda dan Kelas</label>
+                        <input type="text" id="commenterName" placeholder="Contoh: Budi Sanjaya" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div class="mb-4">
-                        <label for="commentText" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Komentar</label>
-                        <textarea id="commentText" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" placeholder="Tulis komentar Anda di sini..."></textarea>
+                        <label for="commentText" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jawaban Anda</p>
+                        <textarea id="commentText" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" placeholder="Tulis jawaban Anda di sini..."></textarea>
                     </div>
                     <button id="submitCommentBtn" class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-transform transform hover:scale-105">
-                        Kirim Komentar
+                        Kirim Jawaban
                     </button>
                 </div>
                 <div id="comments-list" class="space-y-4">
-                </div>
-            </div>
-
-            <div id="placeholder" class="text-center py-16 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
-                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45 10.22 13.22m5.23-3.22L12 7.5 9 10.5M15 10l-3-2.5-3 2.5" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.55a1.5 1.5 0 01.95 1.41V16.5a1.5 1.5 0 01-1.5 1.5h-10a1.5 1.5 0 01-1.5-1.5v-3.09A1.5 1.5 0 014.55 10L9 14.45" />
-                </svg>
-                <p class="mt-2 text-sm font-medium text-gray-600 dark:text-gray-400">Pratinjau video akan muncul di sini</p>
+                    </div>
             </div>
         </div>
     </div>
 
     <script>
         // --- Referensi Elemen DOM ---
-        const adminUploadBtn = document.getElementById('adminUploadBtn');
-        const videoUpload = document.getElementById('videoUpload');
-        const fileNameDisplay = document.getElementById('fileName');
-        const videoContainer = document.getElementById('video-container');
-        const videoPlayer = document.getElementById('videoPlayer');
-        const notesContainer = document.getElementById('notes-container');
-        const placeholder = document.getElementById('placeholder');
-        const commentsContainer = document.getElementById('comments-container');
         const submitCommentBtn = document.getElementById('submitCommentBtn');
         const commenterName = document.getElementById('commenterName');
         const commentText = document.getElementById('commentText');
@@ -116,13 +100,12 @@
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // --- Logika Dark Mode (tidak berubah) ---
+        // --- Logika Dark Mode ---
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             themeToggleLightIcon.classList.remove('hidden');
         } else {
             themeToggleDarkIcon.classList.remove('hidden');
         }
-
         themeToggleBtn.addEventListener('click', function() {
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
@@ -145,59 +128,13 @@
             }
         });
 
-        // --- Logika Unggah Video ---
-        // Listener ini HANYA untuk tombol "Admin: Unggah Video"
-        adminUploadBtn.addEventListener('click', function() {
-            const password = prompt("Masukkan password admin:");
-            // Hanya jika password benar, proses pemilihan file dimulai.
-            if (password === "admin123") {
-                videoUpload.click(); // Memicu dialog pemilihan file
-            } else if (password !== null) {
-                alert("Password salah. Hanya admin yang dapat mengunggah video.");
-            }
-        });
-
-        // Listener ini berjalan SETELAH admin berhasil memilih file
-        videoUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (!file.type.startsWith('video/')) {
-                    alert('Harap pilih file video.');
-                    return;
-                }
-                const videoURL = URL.createObjectURL(file);
-                videoPlayer.src = videoURL;
-
-                // --- BAGIAN PENTING ---
-                // Kode di bawah ini membuat video dan kolom komentar TERLIHAT OLEH SEMUA ORANG
-                // dengan menghapus kelas 'hidden'.
-                // Proses ini tidak memerlukan password.
-                videoContainer.classList.remove('hidden');
-                notesContainer.classList.remove('hidden');
-                commentsContainer.classList.remove('hidden');
-                
-                placeholder.classList.add('hidden'); // Sembunyikan placeholder
-                fileNameDisplay.textContent = `File yang dipilih: ${file.name}`;
-                videoPlayer.load();
-            } else {
-                // Mengembalikan ke state awal jika admin batal memilih file
-                videoContainer.classList.add('hidden');
-                notesContainer.classList.add('hidden');
-                commentsContainer.classList.add('hidden');
-                placeholder.classList.remove('hidden');
-                fileNameDisplay.textContent = '';
-                videoPlayer.src = '';
-            }
-        });
-
-        // --- Logika Komentar (Dapat Diakses Semua Pengguna) ---
-        // Listener ini tidak memiliki batasan apa pun. Siapa saja bisa mengkliknya.
+        // --- Logika Kirim Komentar/Jawaban ---
         submitCommentBtn.addEventListener('click', function() {
             const name = commenterName.value.trim();
             const comment = commentText.value.trim();
 
             if (name === "" || comment === "") {
-                alert("Nama dan komentar tidak boleh kosong.");
+                alert("Nama dan jawaban tidak boleh kosong.");
                 return;
             }
 
@@ -210,18 +147,19 @@
 
             const dateElement = document.createElement('p');
             dateElement.classList.add('text-xs', 'text-gray-500', 'dark:text-gray-400', 'mb-2');
-            dateElement.textContent = new Date().toLocaleString('id-ID');
+            dateElement.textContent = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' });
 
             const commentTextElement = document.createElement('p');
-            commentTextElement.classList.add('text-gray-700', 'dark:text-gray-300');
+            commentTextElement.classList.add('text-gray-700', 'dark:text-gray-300', 'whitespace-pre-wrap'); // whitespace-pre-wrap agar format paragraf terjaga
             commentTextElement.textContent = comment;
 
             commentElement.appendChild(nameElement);
             commentElement.appendChild(dateElement);
             commentElement.appendChild(commentTextElement);
 
-            commentsList.prepend(commentElement);
+            commentsList.prepend(commentElement); // Menampilkan jawaban baru di paling atas
 
+            // Mengosongkan kolom input setelah dikirim
             commenterName.value = '';
             commentText.value = '';
         });
